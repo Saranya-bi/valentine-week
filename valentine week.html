@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Week - My Dear Love ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #3b000f, #6b001a, #8b0028);
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Floating hearts background */
+.hearts-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.15;
+    animation: floatHeart 10s linear infinite;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.15;
+    }
+    90% {
+        opacity: 0.15;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Container for all screens */
+.screen {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ============ SCREEN 1: GIFT BOX ============ */
+.gift-container {
+    perspective: 1000px;
+}
+
+.gift-box-wrapper {
+    position: relative;
+    width: 200px;
+    height: 220px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    margin-bottom: 30px;
+}
+
+.gift-box-wrapper:hover {
+    transform: scale(1.05);
+}
+
+.gift-lid {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff1744, #c41133);
+    border-radius: 10px 10px 5px 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 2;
+}
+
+.gift-lid::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 100%;
+    background: #ffd700;
+}
+
+.gift-lid::after {
+    content: '🎀';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+}
+
+.gift-box-wrapper.opening .gift-lid {
+    transform: translateX(-50%) translateY(-150px) rotateX(-45deg);
+    opacity: 0;
+}
+
+.gift-body {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 160px;
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    border-radius: 5px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    overflow: visible;
+}
+
+.gift-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 100%;
+    background: #ffd700;
+    z-index: 1;
+}
+
+/* Items inside the box */
+.inside-items {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 20px;
+    opacity: 0;
+    z-index: 3;
+}
+
+.inside-items img {
+    max-width: 80px;
+    max-height: 80px;
+}
+
+.pop-item {
+    transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.gift-box-wrapper.opening .inside-items {
+    opacity: 1;
+}
+
+.gift-box-wrapper.opening .pop-item-center {
+    transform: translateY(-200px) scale(1.3);
+}
+
+.click-text {
+    margin-top: 20px;
+    font-size: 24px;
+    color: #ff4d6d;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+/* ============ SCREEN 2: BOUQUET & CHOCOLATE ============ */
+.reveal-screen {
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.gifts-display {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.gift-item-static {
+    animation: bounce 2s ease-in-out infinite;
+    filter: drop-shadow(0 10px 20px rgba(255, 77, 109, 0.4));
+}
+
+.gift-item-static img {
+    max-width: 120px;
+    max-height: 120px;
+}
+
+.gift-item-static:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.gift-item-static:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.welcome-message {
+    font-size: 42px;
+    margin: 30px 0;
+    color: #ff4d6d;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    animation: slideIn 1s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.subtitle {
+    font-size: 28px;
+    color: #ffb3c1;
+    margin: 20px 0;
+    font-style: italic;
+}
+
+.continue-btn {
+    margin-top: 30px;
+    padding: 15px 40px;
+    font-size: 20px;
+    background: linear-gradient(135deg, #ff3366, #ff6b9d);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
+    transition: all 0.3s;
+    animation: pulse 2s infinite;
+}
+
+.continue-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(255, 51, 102, 0.6);
+}
+
+/* ============ SCREEN 3: GIFT BOXES GRID ============ */
+.valentine-week-screen h1 {
+    font-size: 48px;
+    color: #ff4d6d;
+    margin-bottom: 50px;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+}
+
+.gift-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    max-width: 1000px;
+    padding: 20px;
+}
+
+@media (max-width: 900px) {
+    .gift-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .gift-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.day-box {
+    background: linear-gradient(135deg, #800020, #b30033);
+    padding: 30px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.4s;
+    box-shadow: 0 8px 20px rgba(255, 0, 80, 0.4);
+    position: relative;
+    overflow: hidden;
+    animation: gentleShake 3s ease-in-out infinite;
+}
+
+@keyframes gentleShake {
+    0%, 100% { transform: rotate(0deg); }
+    10% { transform: rotate(2deg); }
+    20% { transform: rotate(-2deg); }
+    30% { transform: rotate(2deg); }
+    40% { transform: rotate(0deg); }
+}
+
+.day-box:nth-child(1) { animation-delay: 0s; }
+.day-box:nth-child(2) { animation-delay: 0.2s; }
+.day-box:nth-child(3) { animation-delay: 0.4s; }
+.day-box:nth-child(4) { animation-delay: 0.6s; }
+.day-box:nth-child(5) { animation-delay: 0.8s; }
+.day-box:nth-child(6) { animation-delay: 1s; }
+.day-box:nth-child(7) { animation-delay: 1.2s; }
+.day-box:nth-child(8) { animation-delay: 1.4s; }
+
+.day-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.6s;
+}
+
+.day-box:hover::before {
+    left: 100%;
+}
+
+.day-box:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(255, 77, 109, 0.6);
+    animation: none;
+}
+
+.day-box span {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.day-box h3 {
+    font-size: 20px;
+    color: #ffb3c1;
+    margin: 10px 0;
+}
+
+.day-box p {
+    font-size: 14px;
+    color: #ffd1dc;
+}
+
+/* ============ LETTER POPUP ============ */
+.letter-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.letter-overlay.active {
+    display: flex;
+}
+
+.letter-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    animation: letterOpen 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes letterOpen {
+    0% {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+.letter-content img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 15px;
+    box-shadow: 0 0 50px rgba(255, 77, 109, 0.8);
+}
+
+.back-btn {
+    margin-top: 25px;
+    padding: 12px 35px;
+    font-size: 18px;
+    background: linear-gradient(135deg, #ff3366, #ff6b9d);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 51, 102, 0.5);
+    transition: all 0.3s;
+}
+
+.back-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(255, 51, 102, 0.7);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Floating hearts background -->
+<div class="hearts-bg" id="heartsBg"></div>
+
+<!-- SCREEN 1: Initial Gift Box -->
+<div class="screen" id="screen1">
+    <div class="gift-container">
+        <div class="gift-box-wrapper" id="giftBox" onclick="openGiftBox()">
+            <div class="gift-lid"></div>
+            <div class="gift-body">
+                <!-- Items inside the box that will pop out -->
+                <div class="inside-items" id="insideItems">
+                    <div class="pop-item pop-item-center">
+                        <img src="bouquet.gif" alt="Bouquet">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="click-text">Click to open! 🎁</p>
+    </div>
+</div>
+
+<!-- SCREEN 2: Welcome Message -->
+<div class="screen reveal-screen hidden" id="screen2">
+    <div class="gifts-display">
+        <div class="gift-item-static">
+            <img src="bouquet.gif" alt="Bouquet">
+        </div>
+    </div>
+    <h2 class="welcome-message">Welcome To Valentine Week</h2>
+    <p class="subtitle">My Dear Love 💕</p>
+    <button class="continue-btn" onclick="showValentineWeek()">Continue to Valentine Week →</button>
+</div>
+
+<!-- SCREEN 3: Valentine Week Gift Boxes -->
+<div class="screen valentine-week-screen hidden" id="screen3">
+    <h1>Valentine Week Gifts 💝</h1>
+    <div class="gift-grid">
+        
+        <div class="day-box" onclick="openLetter(1)">
+            <span style="font-size: 60px;">🌹</span>
+            <h3>Day 1</h3>
+            <p>Rose Day</p>
+        </div>
+
+        <div class="day-box" onclick="openLetter(2)">
+            <span style="font-size: 60px;">💍</span>
+            <h3>Day 2</h3>
+            <p>Propose Day</p>
+        </div>
+
+        <div class="day-box" onclick="openLetter(3)">
+            <span style="font-size: 60px;">🍫</span>
+            <h3>Day 3</h3>
+            <p>Chocolate Day</p>
+        </div>
+
+        <div class="day-box" onclick="openLetter(4)">
+            <span style="font-size: 60px;">🧸</span>
+            <h3>Day 4</h3>
+            <p>Teddy Day</p>
+        </div>
+
+        <div class="day-box" onclick="openLetter(5)">
+            <span style="font-size: 60px;">🤝</span>
+            <h3>Day 5</h3>
+            <p>Promise Day</p>
+        </div>
+
+        <div class="day-box" onclick="openLetter(6)">
+            <span style="font-size: 60px;">🤗</span>
+            <h3>Day 6</h3>
+            <p>Hug Day</p>
+        </div>
+
+        <div class="day-box" onclick="openLetter(7)">
+            <span style="font-size: 60px;">💋</span>
+            <h3>Day 7</h3>
+            <p>Kiss Day</p>
+        </div>
+
+        <div class="day-box" onclick="openLetter(8)">
+            <span style="font-size: 60px;">💝</span>
+            <h3>Day 8</h3>
+            <p>Valentine's Day</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- LETTER POPUP OVERLAY -->
+<div class="letter-overlay" id="letterOverlay">
+    <div class="letter-content">
+        <img id="letterImage" src="" alt="Letter">
+        <br>
+        <button class="back-btn" onclick="closeLetter()">← Back to Gifts</button>
+    </div>
+</div>
+
+<script>
+
+// Create floating hearts
+function createFloatingHearts() {
+    const heartsBg = document.getElementById('heartsBg');
+    const hearts = ['❤️', '💕', '💖', '💗', '💝', '💞'];
+    
+    for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        heartsBg.appendChild(heart);
+    }
+}
+
+createFloatingHearts();
+
+// Open gift box animation
+function openGiftBox() {
+    const giftBox = document.getElementById('giftBox');
+    giftBox.classList.add('opening');
+    
+    // After items pop out, switch to welcome screen
+    setTimeout(() => {
+        document.getElementById('screen1').classList.add('hidden');
+        document.getElementById('screen2').classList.remove('hidden');
+    }, 1500);
+}
+
+// Show Valentine Week screen
+function showValentineWeek() {
+    document.getElementById('screen2').classList.add('hidden');
+    document.getElementById('screen3').classList.remove('hidden');
+}
+
+// Letter images mapping (you'll need to replace these with your actual image paths)
+const letters = {
+    1: "rose.jpeg",
+    2: "propose.jpeg",
+    3: "chocolate.jpeg",
+    4: "teddy.jpeg",
+    5: "promise.jpeg",
+    6: "hug.jpeg",
+    7: "kiss.jpeg",
+    8: "valentine.jpeg"
+};
+
+// Open letter popup
+function openLetter(day) {
+    const overlay = document.getElementById('letterOverlay');
+    const letterImage = document.getElementById('letterImage');
+    letterImage.src = letters[day];
+    overlay.classList.add('active');
+}
+
+// Close letter popup
+function closeLetter() {
+    const overlay = document.getElementById('letterOverlay');
+    overlay.classList.remove('active');
+}
+
+// Close letter when clicking outside
+document.getElementById('letterOverlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeLetter();
+    }
+});
+
+</script>
+
+</body>
+</html>
